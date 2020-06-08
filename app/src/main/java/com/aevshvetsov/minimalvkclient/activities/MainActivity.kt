@@ -1,10 +1,11 @@
-package com.aevshvetsov.minimalvkclient
+package com.aevshvetsov.minimalvkclient.activities
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.aevshvetsov.minimalvkclient.R
 import com.aevshvetsov.minimalvkclient.fragments.UsersWallFragment
 import com.aevshvetsov.minimalvkclient.utils.Constants.ACCESS_TOKEN_KEY
 import com.aevshvetsov.minimalvkclient.utils.Constants.PREFERENCE_FILE_NAME
