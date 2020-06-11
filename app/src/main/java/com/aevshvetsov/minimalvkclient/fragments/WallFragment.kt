@@ -14,12 +14,7 @@ import com.aevshvetsov.minimalvkclient.viewmodels.UsersWallViewModel
 import kotlinx.android.synthetic.main.users_wall_fragment.*
 
 
-class UsersWallFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = UsersWallFragment()
-    }
-
+class WallFragment : Fragment() {
     private lateinit var viewModel: UsersWallViewModel
 
     override fun onCreateView(

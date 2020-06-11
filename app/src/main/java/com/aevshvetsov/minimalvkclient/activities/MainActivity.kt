@@ -5,14 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.aevshvetsov.minimalvkclient.R
-import com.aevshvetsov.minimalvkclient.fragments.UsersWallFragment
 import com.aevshvetsov.minimalvkclient.utils.Constants.ACCESS_TOKEN_KEY
 import com.aevshvetsov.minimalvkclient.utils.Constants.PREFERENCE_FILE_NAME
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         )
             VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
         else {
-            openMainFragment()
+            setupViews()
         }
     }
 
@@ -37,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 // User passed authorization
                 Log.d("M_MainActivity", "Users token is : ${token.accessToken}")
                 saveToken(token.accessToken)
-                openMainFragment()
+                setupViews()
             }
 
             override fun onLoginFailed(errorCode: Int) {
@@ -49,16 +53,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupViews() {
+        val topLevelDestinationIds = setOf(
+            R.id.wallFragment,
+            R.id.searchFragment,
+            R.id.notificationsFragment,
+            R.id.profileFragment
+        )
+        // Finding the Navigation Controller
+        val navController = findNavController(R.id.fragNavHost)
+
+        // Setting Navigation Controller with the BottomNavigationView
+        bottomNavView.setupWithNavController(navController)
+
+        val appBarConfiguration = AppBarConfiguration(topLevelDestinationIds)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
     private fun saveToken(accessToken: String) {
         val spref = getSharedPreferences(PREFERENCE_FILE_NAME, Context.MODE_PRIVATE)
         spref.edit().putString(ACCESS_TOKEN_KEY, accessToken).apply()
     }
 
-    private fun openMainFragment() {
-        val fm = supportFragmentManager
-        fm.beginTransaction()
-            .replace(R.id.container, UsersWallFragment.newInstance())
-            .commit()
-    }
 
 }
