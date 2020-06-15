@@ -5,24 +5,24 @@
             app:startDestination="@id/wallFragment">
 
     <fragment android:id="@+id/dialogsFragment"
-              android:name="com.aevshvetsov.minimalvkclient.fragments.DialogsFragment"
+              android:name="com.aevshvetsov.minimalvkclient.ui.fragments.DialogsFragment"
               android:label="@string/dialogs_fragment_label" tools:layout="@layout/fragment_dialogs"/>
 
     <fragment android:id="@+id/notificationsFragment"
-              android:name="com.aevshvetsov.minimalvkclient.fragments.NotificationFragment"
+              android:name="com.aevshvetsov.minimalvkclient.ui.fragments.NotificationFragment"
               android:label="@string/notifications_fragment_label"
               tools:layout="@layout/fragment_notification"/>
 
     <fragment
             android:id="@+id/searchFragment"
-            android:name="com.aevshvetsov.minimalvkclient.fragments.SearchFragment"
+            android:name="com.aevshvetsov.minimalvkclient.ui.fragments.SearchFragment"
             android:label="@string/search_fragment_label" tools:layout="@layout/fragment_search"/>
 
     <fragment android:id="@+id/profileFragment"
-              android:name="com.aevshvetsov.minimalvkclient.fragments.ProfileFragment"
+              android:name="com.aevshvetsov.minimalvkclient.ui.fragments.ProfileFragment"
               android:label="@string/profile_fragment_label"
-              tools:layout="@layout/profile_fragment"/>
+              tools:layout="@layout/fragment_profile"/>
     <fragment android:id="@+id/wallFragment"
-              android:name="com.aevshvetsov.minimalvkclient.fragments.WallFragment"
-              android:label="@string/wall_fragment_label" tools:layout="@layout/users_wall_fragment"/>
+              android:name="com.aevshvetsov.minimalvkclient.ui.fragments.FeedFragment"
+              android:label="@string/wall_fragment_label" tools:layout="@layout/fragment_feed"/>
 </navigation>

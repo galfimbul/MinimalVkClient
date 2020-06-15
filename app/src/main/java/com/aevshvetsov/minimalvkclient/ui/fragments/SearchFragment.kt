@@ -1,4 +1,4 @@
-package com.aevshvetsov.minimalvkclient.fragments
+package com.aevshvetsov.minimalvkclient.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.aevshvetsov.minimalvkclient.activities
+package com.aevshvetsov.minimalvkclient.ui.activities
 
 import android.content.Context
 import android.content.Intent
