@@ -2,6 +2,8 @@ package com.aevshvetsov.minimalvkclient
 
 import android.app.Application
 import android.content.Context
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.VKTokenExpiredHandler
 
 /**
  * Created by Alexander Shvetsov on 07.06.2020
@@ -17,8 +19,16 @@ class MinimalVkApp : Application() {
     init {
         instance = this
     }
+
+    private val tokenTracker = object : VKTokenExpiredHandler {
+        override fun onTokenExpired() {
+        }
+    }
     override fun onCreate() {
         super.onCreate()
+        VK.addTokenExpiredHandler(tokenTracker)
+
+
     }
 
 }

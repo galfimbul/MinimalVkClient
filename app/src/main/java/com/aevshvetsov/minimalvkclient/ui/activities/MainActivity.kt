@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,15 +26,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (getSharedPreferences(PREFERENCE_FILE_NAME, Context.MODE_PRIVATE)?.getString(
-                ACCESS_TOKEN_KEY,
-                ""
-            ).isNullOrEmpty()
-        )
-            VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
-        else {
+        setSupportActionBar(toolbar)
+        Log.d("M_MainActivity", "vkLogin")
+        if (VK.isLoggedIn()) {
             setupViews()
+        } else {
+            performLogin()
         }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menu?.findItem(R.id.menu_logout)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_logout -> {
+                VK.logout()
+                performLogin()
+            }
+        }
+        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -41,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 // User passed authorization
                 Log.d("M_MainActivity", "Users token is : ${token.accessToken}")
                 saveToken(token.accessToken)
+                VK.saveAccessToken(this@MainActivity, token.userId, token.accessToken, token.secret)
                 setupViews()
             }
 
@@ -51,6 +69,10 @@ class MainActivity : AppCompatActivity() {
         if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun performLogin() {
+        VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS, VKScope.FRIENDS, VKScope.OFFLINE))
     }
 
     private fun setupViews() {

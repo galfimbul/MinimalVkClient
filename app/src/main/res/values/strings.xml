@@ -9,4 +9,5 @@
     <string name="search_fragment_label">Поиск</string>
     <string name="profile_fragment_label">Профиль</string>
     <string name="wall_fragment_label">Стена</string>
+    <string name="menu_logout">Выйти</string>
 </resources>

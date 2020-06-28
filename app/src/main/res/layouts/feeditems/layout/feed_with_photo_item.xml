@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-</LinearLayout>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools">
+    <include
+            android:id="@+id/base_top_views"
+            layout="@layout/base_top_views"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+    />
+    <TextView
+            android:id="@+id/tv_caption"
+            app:layout_constraintTop_toBottomOf="@+id/base_top_views"
+            tools:text="some very long text............."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <ImageView
+            android:id="@+id/iv_post_photo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_caption"
+            app:layout_constraintBottom_toTopOf="@+id/base_bottom_views"
+            android:layout_margin="4dp"
+            android:src="@drawable/placeholder"/>
+    <include
+            android:id="@+id/base_bottom_views"
+            layout="@layout/base_bottom_views"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_post_photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

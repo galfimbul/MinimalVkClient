@@ -1,6 +1,5 @@
 package com.aevshvetsov.minimalvkclient.utils
 
-import android.content.Context
 import android.content.res.Resources
 
 object Utils {
@@ -15,8 +14,8 @@ object Utils {
 
     fun transliteration(payload: String, divider: String = " "): String {
 
-        var string = payload.trim()
-        var result = StringBuilder()
+        val string = payload.trim()
+        val result = StringBuilder()
         val translit = mapOf(
             "а" to "a",
             "б" to "b",
@@ -54,12 +53,12 @@ object Utils {
         )
         if (payload.trim().isNullOrEmpty()) return ""
         else {
-            for (symbol in 0..string.length - 1) {
+            for (symbol in string.indices) {
                 if (string[symbol].isWhitespace()) {
                     result.append(divider)
                 } else
                     if ("${string[symbol]}" in translit) {
-                        result.append(translit.get("${string[symbol]}"))
+                        result.append(translit["${string[symbol]}"])
                     } else if ("${string[symbol].toLowerCase()}" in translit) {
                         result.append(translit.get("${string[symbol].toLowerCase()}")?.capitalize())
                     } else if (translit.containsValue("${string[symbol].toLowerCase()}")) {
@@ -93,11 +92,11 @@ object Utils {
         return dp.toFloat() * Resources.getSystem().displayMetrics.density
     }
 
-    fun convertPixelsToDp(pixels: Int): Int {
+    fun PxToDp(pixels: Int): Int {
         return pixels / Resources.getSystem().displayMetrics.density.toInt()
     }
 
-    fun convertSpToPx(context: Context, sp: Int): Int {
-        return sp * context.resources.displayMetrics.scaledDensity.toInt()
+    fun SpToPx(sp: Int): Int {
+        return sp * Resources.getSystem().displayMetrics.scaledDensity.toInt()
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+    <com.aevshvetsov.minimalvkclient.ui.custom.AvatarImageView
+            android:id="@+id/author_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    <ImageView
+            android:id="@+id/iv_item_more"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/author_logo"
+            android:src="@drawable/ic_more"/>
+    <TextView
+            android:id="@+id/tv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/author_logo"
+            app:layout_constraintStart_toEndOf="@id/author_logo"
+            app:layout_constraintBottom_toBottomOf="@id/author_logo"
+            tools:text="group name"
+            android:textColor="@android:color/black"
+            android:paddingTop="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp"/>
+    <TextView
+            android:id="@+id/tv_publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_group_name"
+            app:layout_constraintStart_toStartOf="@id/tv_group_name"
+            app:layout_constraintBottom_toBottomOf="@+id/author_logo"
+            tools:text="5 minutes ago"
+            android:textColor="@android:color/darker_gray"
+            android:paddingTop="2dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="4dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
