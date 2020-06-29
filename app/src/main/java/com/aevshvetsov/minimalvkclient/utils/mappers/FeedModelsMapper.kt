@@ -38,10 +38,10 @@ class FeedModelsMapper(response: Response) {
                 false
             }
         }
-        val views = item.views.count
+        val views: Views? = item.views
 
         val postTime = convertTimeToText(item.date * Constants.MILLISECONDS_MULTIPLIER)
-        when (item.attachments.size) {
+        when (item.attachments?.size) {
             1 -> {
                 if (item.attachments[0].type == FeedAttachmentType.PHOTO.name.toLowerCase()) {
                     val photoUrl =
@@ -55,7 +55,7 @@ class FeedModelsMapper(response: Response) {
                         postTime = postTime,
                         attachmentUrl = photoUrl,
                         isLiked = item.likes.userLikes == 1,
-                        views = views
+                        views = views?.count!!
                     )
                 } else return FeedItemModel()
 

@@ -5,5 +5,6 @@ package com.aevshvetsov.minimalvkclient.utils
  */
 enum class FeedAttachmentType() {
     PHOTO,
-    VIDEO
+    VIDEO,
+    AUDIO
 }

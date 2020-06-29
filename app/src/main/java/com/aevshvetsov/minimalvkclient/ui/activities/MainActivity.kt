@@ -80,7 +80,8 @@ class MainActivity : AppCompatActivity() {
             R.id.wallFragment,
             R.id.searchFragment,
             R.id.notificationsFragment,
-            R.id.profileFragment
+            R.id.profileFragment,
+            R.id.dialogsFragment
         )
         // Finding the Navigation Controller
         val navController = findNavController(R.id.fragNavHost)

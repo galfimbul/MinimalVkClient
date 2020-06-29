@@ -34,7 +34,7 @@ data class Group(
 )
 
 data class Item(
-    val attachments: List<Attachment>,
+    val attachments: List<Attachment>? = emptyList(),
     @SerializedName("can_doubt_category")
     val canDoubtCategory: Boolean,
     @SerializedName("can_set_category")

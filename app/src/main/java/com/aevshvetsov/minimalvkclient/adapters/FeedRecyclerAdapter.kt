@@ -1,6 +1,6 @@
 package com.aevshvetsov.minimalvkclient.adapters
 
-import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,11 +44,16 @@ class FeedWithPhotoViewHolder(itemView: View) : FeedViewHolder(itemView) {
             tv_publish_time.text = item.postTime
 
             if (item.text.isEmpty()) {
+                sv_caption.visibility = View.GONE
                 tv_caption.visibility = View.GONE
             } else {
+                Log.d("M_FeedRecyclerAdapter", "${tv_caption.text}\n\n")
                 tv_caption.visibility = View.VISIBLE
-                tv_caption.movementMethod = ScrollingMovementMethod()
+                //tv_caption.movementMethod = ScrollingMovementMethod()
+                tv_caption.maxLines = Int.MAX_VALUE
                 tv_caption.text = item.text
+                //tv_caption.requestFocusFromTouch()
+                sv_caption.visibility = View.VISIBLE
             }
 
             tv_views_count.text = item.views.toString()
