@@ -39,11 +39,11 @@ data class Item(
     val canDoubtCategory: Boolean,
     @SerializedName("can_set_category")
     val canSetCategory: Boolean,
-    val comments: Comments,
+    val comments: Comments?,
     val date: Int,
     @SerializedName("is_favorite")
     val isFavorite: Boolean,
-    val likes: Likes,
+    val likes: Likes?,
     @SerializedName("marked_as_ads")
     val markedAsAds: Int,
     @SerializedName("post_id")

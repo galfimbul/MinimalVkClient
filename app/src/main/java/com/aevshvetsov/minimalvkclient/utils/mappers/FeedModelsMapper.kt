@@ -54,8 +54,11 @@ class FeedModelsMapper(response: Response) {
                         text = item.text,
                         postTime = postTime,
                         attachmentUrl = photoUrl,
-                        isLiked = item.likes.userLikes == 1,
-                        views = views?.count!!
+                        isLiked = item.likes?.userLikes == 1,
+                        views = views?.count ?: 0,
+                        commentsCount = item.comments?.count ?: 0,
+                        canComment = item.comments?.canPost ?: 1,
+                        likes_count = item.likes?.count ?: 0
                     )
                 } else return FeedItemModel()
 

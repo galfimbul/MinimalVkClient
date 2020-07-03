@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.feed_with_photo_item.view.*
  * Created by Alexander Shvetsov on 27.06.2020
  */
 class FeedRecyclerAdapter : RecyclerView.Adapter<FeedViewHolder>() {
-    lateinit var itemsList: List<FeedItemModel>
+    private lateinit var itemsList: List<FeedItemModel>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return FeedWithPhotoViewHolder(inflater.inflate(R.layout.feed_with_photo_item, parent, false))
@@ -55,8 +55,14 @@ class FeedWithPhotoViewHolder(itemView: View) : FeedViewHolder(itemView) {
                 //tv_caption.requestFocusFromTouch()
                 sv_caption.visibility = View.VISIBLE
             }
-
             tv_views_count.text = item.views.toString()
+            tv_likes_count.text = "${item.likes_count}"
+            if (item.canComment == 0) {
+                tv_comments_count.visibility = View.GONE
+            } else {
+                tv_comments_count.text = "${item.commentsCount}"
+                tv_comments_count.visibility = View.VISIBLE
+            }
         }
         Glide.with(itemView.author_logo).load(item.groupPhotoUrl).into(itemView.author_logo)
         Glide.with(itemView.iv_post_photo).load(item.attachmentUrl).into(itemView.iv_post_photo)

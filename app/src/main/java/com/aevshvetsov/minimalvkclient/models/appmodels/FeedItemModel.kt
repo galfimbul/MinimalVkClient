@@ -12,5 +12,8 @@ data class FeedItemModel(
     val text: String = "TEST TEXT",
     val attachmentUrl: String = Constants.FAKE_IMAGE_URL,
     val isLiked: Boolean = false,
-    val views: Int = 10
+    val views: Int = 10,
+    val canComment: Int = 1,
+    val commentsCount: Int = 10,
+    val likes_count: Int = 10
 )
