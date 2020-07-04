@@ -2,7 +2,10 @@ package com.aevshvetsov.minimalvkclient.adapters
 
 import com.aevshvetsov.minimalvkclient.models.networkmodels.*
 import com.aevshvetsov.minimalvkclient.utils.FeedAttachmentType
-import com.google.gson.*
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import java.lang.reflect.Type
 
 /**
@@ -17,38 +20,13 @@ class AttachmentsTypeAdapter : JsonDeserializer<Attachment> {
         val jsonObject = json?.asJsonObject
         return when (val typeName = jsonObject?.get("type")?.asString) {
             FeedAttachmentType.PHOTO.name.toLowerCase() -> {
-                /*val photo =
-                    context!!.deserialize<Photo>(
-                        jsonObject?.get(FeedAttachmentType.PHOTO.name.toLowerCase()),
-                        Photo::class.java
-                    )
-                Attachment(
-                    type = typeName,
-                    value = photo
-                )*/
-                getValue(context, typeName, jsonObject, Photo::class.java)
+                getValue<Photo>(context, typeName, jsonObject)
             }
             FeedAttachmentType.VIDEO.name.toLowerCase() -> {
-                /*val video = context!!.deserialize<Video>(
-                    jsonObject.get(FeedAttachmentType.VIDEO.name.toLowerCase()),
-                    Video::class.java
-                )
-                Attachment(
-                    type = typeName,
-                    value = video
-                )*/
-                getValue(context, typeName, jsonObject, Video::class.java)
+                getValue<Video>(context, typeName, jsonObject)
             }
             FeedAttachmentType.AUDIO.name.toLowerCase() -> {
-                /*val audio = context!!.deserialize<Video>(
-                    jsonObject.get(FeedAttachmentType.VIDEO.name.toLowerCase()),
-                    Audio::class.java
-                )
-                Attachment(
-                    type = typeName,
-                    value = audio
-                )*/
-                getValue(context, typeName, jsonObject, Audio::class.java)
+                getValue<Audio>(context, typeName, jsonObject)
             }
             else -> {
                 Attachment("unsupported", UnsupportedAttachmentType())
@@ -56,22 +34,18 @@ class AttachmentsTypeAdapter : JsonDeserializer<Attachment> {
         }
     }
 
-    fun <T> getValue(
+    inline fun <reified T : AttachmentType> getValue(
         context: JsonDeserializationContext?,
         typeName: String,
-        jsonObject: JsonObject,
-        classT: Class<T>
+        jsonObject: JsonObject
     ): Attachment {
         val value = context!!.deserialize<T>(
             jsonObject.get(typeName),
-            classT
+            T::class.java
         )
-        if (value is AttachmentType)
             return Attachment(
                 type = typeName,
                 value = value as AttachmentType
             )
-        else throw JsonParseException("unsupported attachments type")
     }
-
 }

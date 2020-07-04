@@ -13,5 +13,22 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
     </style>
+    <style name="base_bottom_views_icons">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginTop">@dimen/views_standard_margin</item>
+        <item name="android:layout_marginStart">@dimen/views_standard_margin</item>
+        <item name="android:layout_marginBottom">@dimen/views_standard_margin</item>
+        <item name="android:layout_marginEnd">@dimen/views_margin_smallest</item>
+    </style>
+    <style name="base_bottom_views_counters">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/views_standard_margin</item>
+        <item name="android:layout_marginEnd">@dimen/views_standard_margin</item>
+        <item name="android:layout_marginBottom">@dimen/views_standard_margin</item>
+        <item name="android:layout_marginStart">@dimen/views_margin_smallest</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+    </style>
 
 </resources>

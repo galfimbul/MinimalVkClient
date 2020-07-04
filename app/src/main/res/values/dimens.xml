@@ -2,4 +2,6 @@
 <resources>
     <dimen name="large_text_32">32sp</dimen>
     <dimen name="views_standard_margin">16dp</dimen>
+    <dimen name="views_margin_small">8dp</dimen>
+    <dimen name="views_margin_smallest">4dp</dimen>
 </resources>
