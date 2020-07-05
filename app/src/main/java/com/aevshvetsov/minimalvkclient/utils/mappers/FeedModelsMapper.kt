@@ -5,6 +5,7 @@ import com.aevshvetsov.minimalvkclient.models.appmodels.FeedItemModel
 import com.aevshvetsov.minimalvkclient.models.networkmodels.*
 import com.aevshvetsov.minimalvkclient.utils.Constants
 import com.aevshvetsov.minimalvkclient.utils.FeedAttachmentType
+import com.aevshvetsov.minimalvkclient.utils.FeedViewsType
 import java.text.ParseException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -17,6 +18,8 @@ class FeedModelsMapper(response: Response) {
     private val items: List<Item> = response.items
     private val groups: List<Group> = response.groups
     private val profiles: List<Profile> = response.profiles
+    private var group: Group? = null
+    private var profile: Profile? = null
 
     fun createListForUI(): List<FeedItemModel> {
         return items.map { item ->
@@ -25,47 +28,52 @@ class FeedModelsMapper(response: Response) {
     }
 
     private fun mapFeedNetworkToApp(item: Item): FeedItemModel {
-        var group: Group? = null
-        var profile: Profile? = null
-        val isGroup: Boolean
-        isGroup = when {
-            item.sourceId < 0 -> {
-                group = findGroup(item.sourceId)
-                true
-            }
-            else -> {
-                profile = findProfile(item.sourceId)
-                false
-            }
-        }
         val views: Views? = item.views
-
         val postTime = convertTimeToText(item.date * Constants.MILLISECONDS_MULTIPLIER)
+        val groupName = if (isGroup(item.sourceId)) group!!.name else "${profile!!.firstName} ${profile!!.lastName}"
+        val groupPhotoUrl = if (isGroup(item.sourceId)) group!!.photo50 else profile!!.photo50
+        val text = item.text
+        val isLiked = item.likes?.userLikes == 1
+        val viewsCount = views?.count ?: 0
+        val commentsCount = item.comments?.count ?: 0
+        val canComment = item.comments?.canPost ?: 1
+        val likesCount = item.likes?.count ?: 0
+        val feedItemModel = FeedItemModel(
+            groupName =
+            groupName,
+            groupPhotoUrl = groupPhotoUrl,
+            text = text,
+            postTime = postTime,
+            isLiked = isLiked,
+            views = viewsCount,
+            commentsCount = commentsCount,
+            canComment = canComment,
+            likes_count = likesCount
+        )
         when (item.attachments?.size) {
             1 -> {
                 if (item.attachments[0].type == FeedAttachmentType.PHOTO.name.toLowerCase()) {
                     val photoUrl =
                         (item.attachments[0].value as Photo).sizes.first { it.type == "x" }.url
-
-                    return FeedItemModel(
-                        groupName =
-                        if (isGroup) group!!.name else "${profile!!.firstName} ${profile.lastName}",
-                        groupPhotoUrl = if (isGroup) group!!.photo50 else profile!!.photo50,
-                        text = item.text,
-                        postTime = postTime,
-                        attachmentUrl = photoUrl,
-                        isLiked = item.likes?.userLikes == 1,
-                        views = views?.count ?: 0,
-                        commentsCount = item.comments?.count ?: 0,
-                        canComment = item.comments?.canPost ?: 1,
-                        likes_count = item.likes?.count ?: 0
-                    )
+                    feedItemModel.attachmentUrl = photoUrl
+                    feedItemModel.attachmentViewType = FeedViewsType.WITH_PHOTO.type
                 } else return FeedItemModel()
-
             }
             else -> {
                 return FeedItemModel()
             }
+        }
+        return feedItemModel
+    }
+
+    private fun isGroup(sourceId: Int): Boolean = when {
+        sourceId < 0 -> {
+            group = findGroup(sourceId)
+            true
+        }
+        else -> {
+            profile = findProfile(sourceId)
+            false
         }
     }
 

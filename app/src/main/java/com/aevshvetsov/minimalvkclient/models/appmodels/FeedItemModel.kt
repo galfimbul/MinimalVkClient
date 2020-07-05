@@ -1,6 +1,7 @@
 package com.aevshvetsov.minimalvkclient.models.appmodels
 
 import com.aevshvetsov.minimalvkclient.utils.Constants
+import com.aevshvetsov.minimalvkclient.utils.FeedViewsType
 
 /**
  * Created by Alexander Shvetsov on 27.06.2020
@@ -10,10 +11,11 @@ data class FeedItemModel(
     val groupName: String = "Test Name",
     val postTime: String = "NOW",
     val text: String = "TEST TEXT",
-    val attachmentUrl: String = Constants.FAKE_IMAGE_URL,
+    var attachmentUrl: String = Constants.FAKE_IMAGE_URL,
     val isLiked: Boolean = false,
     val views: Int = 10,
     val canComment: Int = 1,
     val commentsCount: Int = 10,
-    val likes_count: Int = 10
+    val likes_count: Int = 10,
+    var attachmentViewType: Int = FeedViewsType.WITH_PHOTO.type
 )

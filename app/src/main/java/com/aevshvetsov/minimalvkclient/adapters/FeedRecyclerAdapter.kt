@@ -1,16 +1,13 @@
 package com.aevshvetsov.minimalvkclient.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aevshvetsov.minimalvkclient.R
 import com.aevshvetsov.minimalvkclient.models.appmodels.FeedItemModel
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.base_bottom_views.view.*
-import kotlinx.android.synthetic.main.base_top_views.view.*
-import kotlinx.android.synthetic.main.feed_with_photo_item.view.*
+import com.aevshvetsov.minimalvkclient.ui.viewholders.FeedWithPhotoViewHolder
+import com.aevshvetsov.minimalvkclient.ui.viewholders.FeedWithVideoViewHolder
+import com.aevshvetsov.minimalvkclient.utils.FeedViewsType
 
 /**
  * Created by Alexander Shvetsov on 27.06.2020
@@ -19,8 +16,45 @@ class FeedRecyclerAdapter : RecyclerView.Adapter<FeedViewHolder>() {
     private lateinit var itemsList: List<FeedItemModel>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return FeedWithPhotoViewHolder(inflater.inflate(R.layout.feed_with_photo_item, parent, false))
+        return when (viewType) {
+            FeedViewsType.WITH_PHOTO.type -> {
+                FeedWithPhotoViewHolder(
+                    inflater.inflate(
+                        R.layout.feed_with_photo_item,
+                        parent,
+                        false
+                    )
+                )
+            }
+            FeedViewsType.WITH_VIDEO.type -> {
+                FeedWithVideoViewHolder(inflater.inflate(R.layout.feed_with_photo_item, parent, false))
+            }
+            else -> FeedWithPhotoViewHolder(
+                inflater.inflate(
+                    R.layout.feed_with_photo_item,
+                    parent,
+                    false
+                )
+            )
+        }
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return when (itemsList[position].attachmentViewType) {
+            FeedViewsType.TEXT_ONLY.type -> {
+                FeedViewsType.TEXT_ONLY.type
+            }
+            FeedViewsType.WITH_PHOTO.type -> {
+                FeedViewsType.WITH_PHOTO.type
+            }
+            FeedViewsType.WITH_VIDEO.type -> {
+                FeedViewsType.WITH_VIDEO.type
+            }
+            FeedViewsType.WITH_AUDIO.type -> {
+                FeedViewsType.WITH_AUDIO.type
+            }
+            else -> throw Exception("Unsupported viewType")
+        }
     }
 
     override fun getItemCount(): Int {
@@ -37,34 +71,3 @@ class FeedRecyclerAdapter : RecyclerView.Adapter<FeedViewHolder>() {
     }
 }
 
-class FeedWithPhotoViewHolder(itemView: View) : FeedViewHolder(itemView) {
-    override fun bind(item: FeedItemModel) {
-        with(itemView) {
-            tv_group_name.text = item.groupName
-            tv_publish_time.text = item.postTime
-
-            if (item.text.isEmpty()) {
-                sv_caption.visibility = View.GONE
-                tv_caption.visibility = View.GONE
-            } else {
-                Log.d("M_FeedRecyclerAdapter", "${tv_caption.text}\n\n")
-                tv_caption.visibility = View.VISIBLE
-                //tv_caption.movementMethod = ScrollingMovementMethod()
-                tv_caption.maxLines = Int.MAX_VALUE
-                tv_caption.text = item.text
-                //tv_caption.requestFocusFromTouch()
-                sv_caption.visibility = View.VISIBLE
-            }
-            tv_views_count.text = item.views.toString()
-            tv_likes_count.text = "${item.likes_count}"
-            if (item.canComment == 0) {
-                tv_comments_count.visibility = View.GONE
-            } else {
-                tv_comments_count.text = "${item.commentsCount}"
-                tv_comments_count.visibility = View.VISIBLE
-            }
-        }
-        Glide.with(itemView.author_logo).load(item.groupPhotoUrl).into(itemView.author_logo)
-        Glide.with(itemView.iv_post_photo).load(item.attachmentUrl).into(itemView.iv_post_photo)
-    }
-}
