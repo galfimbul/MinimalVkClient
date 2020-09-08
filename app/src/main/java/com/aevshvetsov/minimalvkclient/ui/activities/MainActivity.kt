@@ -2,6 +2,7 @@ package com.aevshvetsov.minimalvkclient.ui.activities
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -91,6 +92,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(topLevelDestinationIds)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        toolbar.setTitleTextColor(Color.WHITE)
     }
 
     private fun saveToken(accessToken: String) {

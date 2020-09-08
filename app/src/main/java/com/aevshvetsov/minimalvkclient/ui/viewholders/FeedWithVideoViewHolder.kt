@@ -2,7 +2,6 @@ package com.aevshvetsov.minimalvkclient.ui.viewholders
 
 import android.util.Log
 import android.view.View
-import com.aevshvetsov.minimalvkclient.adapters.FeedViewHolder
 import com.aevshvetsov.minimalvkclient.models.appmodels.FeedItemModel
 import kotlinx.android.synthetic.main.base_bottom_views.view.*
 import kotlinx.android.synthetic.main.base_top_views.view.*
@@ -15,14 +14,12 @@ class FeedWithVideoViewHolder(view: View) : FeedViewHolder(view) {
             tv_publish_time.text = item.postTime
 
             if (item.text.isEmpty()) {
-                sv_caption.visibility = View.GONE
                 tv_caption.visibility = View.GONE
             } else {
                 Log.d("M_FeedRecyclerAdapter", "${tv_caption.text}\n\n")
                 tv_caption.visibility = View.VISIBLE
                 tv_caption.maxLines = Int.MAX_VALUE
                 tv_caption.text = item.text
-                sv_caption.visibility = View.VISIBLE
             }
             tv_views_count.text = item.views.toString()
             tv_likes_count.text = "${item.likes_count}"

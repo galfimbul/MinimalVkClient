@@ -19,25 +19,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
-        <com.aevshvetsov.minimalvkclient.ui.custom.ExpandableTextView
 
+        <com.aevshvetsov.minimalvkclient.ui.custom.ExpandableTextView
+                android:id="@+id/tv_caption"
+                tools:text="some very long text............."
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/base_top_views"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/tv_caption"
-                tools:text="some very long text............."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/rv_multiple_photo_attachments"
                 android:maxLines="3"
                 android:layout_margin="@dimen/views_margin_smallest"
                 android:textColor="@android:color/black"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_multiple_photo_attachments"
+                android:layout_width="0dp"
+                android:layout_height="320dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_caption"
+                app:layout_constraintBottom_toTopOf="@+id/base_bottom_views"
+                android:layout_margin="4dp"/>
         <include
                 android:id="@+id/base_bottom_views"
                 layout="@layout/base_bottom_views"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_caption"
+                app:layout_constraintTop_toBottomOf="@id/rv_multiple_photo_attachments"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

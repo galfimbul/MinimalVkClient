@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aevshvetsov.minimalvkclient.R
 import com.aevshvetsov.minimalvkclient.models.appmodels.FeedItemModel
-import com.aevshvetsov.minimalvkclient.ui.viewholders.FeedWithPhotoViewHolder
-import com.aevshvetsov.minimalvkclient.ui.viewholders.FeedWithVideoViewHolder
+import com.aevshvetsov.minimalvkclient.ui.viewholders.*
 import com.aevshvetsov.minimalvkclient.utils.FeedViewsType
 
 /**
@@ -29,9 +28,18 @@ class FeedRecyclerAdapter : RecyclerView.Adapter<FeedViewHolder>() {
             FeedViewsType.WITH_VIDEO.type -> {
                 FeedWithVideoViewHolder(inflater.inflate(R.layout.feed_with_photo_item, parent, false))
             }
-            else -> FeedWithPhotoViewHolder(
+            FeedViewsType.WITH_MULTIPLE_PHOTO.type -> {
+                FeedWithMultiplePhotoViewHolder(
+                    inflater.inflate(
+                        R.layout.feed_with_multiple_photo_item,
+                        parent,
+                        false
+                    )
+                )
+            }
+            else -> FeedTextOnlyViewHolder(
                 inflater.inflate(
-                    R.layout.feed_with_photo_item,
+                    R.layout.feed_with_only_text_item,
                     parent,
                     false
                 )
@@ -52,6 +60,9 @@ class FeedRecyclerAdapter : RecyclerView.Adapter<FeedViewHolder>() {
             }
             FeedViewsType.WITH_AUDIO.type -> {
                 FeedViewsType.WITH_AUDIO.type
+            }
+            FeedViewsType.WITH_MULTIPLE_PHOTO.type -> {
+                FeedViewsType.WITH_MULTIPLE_PHOTO.type
             }
             else -> throw Exception("Unsupported viewType")
         }

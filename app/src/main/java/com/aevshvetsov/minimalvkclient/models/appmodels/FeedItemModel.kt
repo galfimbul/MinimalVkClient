@@ -1,5 +1,6 @@
 package com.aevshvetsov.minimalvkclient.models.appmodels
 
+import com.aevshvetsov.minimalvkclient.models.networkmodels.Attachment
 import com.aevshvetsov.minimalvkclient.utils.Constants
 import com.aevshvetsov.minimalvkclient.utils.FeedViewsType
 
@@ -12,6 +13,7 @@ data class FeedItemModel(
     val postTime: String = "NOW",
     val text: String = "TEST TEXT",
     var attachmentUrl: String = Constants.FAKE_IMAGE_URL,
+    var attachments: List<Attachment> = emptyList(),
     val isLiked: Boolean = false,
     val views: Int = 10,
     val canComment: Int = 1,

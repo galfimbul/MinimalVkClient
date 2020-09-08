@@ -50,19 +50,27 @@ class FeedModelsMapper(response: Response) {
             canComment = canComment,
             likes_count = likesCount
         )
-        when (item.attachments?.size) {
-            1 -> {
-                if (item.attachments[0].type == FeedAttachmentType.PHOTO.name.toLowerCase()) {
-                    val photoUrl =
-                        (item.attachments[0].value as Photo).sizes.first { it.type == "x" }.url
-                    feedItemModel.attachmentUrl = photoUrl
-                    feedItemModel.attachmentViewType = FeedViewsType.WITH_PHOTO.type
-                } else return FeedItemModel()
+        if (item.attachments != null) {
+            when (item.attachments.size) {
+                1 -> {
+                    if (item.attachments[0].type == FeedAttachmentType.PHOTO.name.toLowerCase()) {
+                        val photoUrl =
+                            (item.attachments[0].value as Photo).sizes.first { it.type == "r" }.url
+                        feedItemModel.attachmentUrl = photoUrl
+                        feedItemModel.attachmentViewType = FeedViewsType.WITH_PHOTO.type
+                    } else return FeedItemModel()
+                }
+                else -> {
+                    return feedItemModel.copy(
+                        attachmentViewType = FeedViewsType.WITH_MULTIPLE_PHOTO.type,
+                        attachments = item.attachments
+                    )
+                }
             }
-            else -> {
-                return FeedItemModel()
-            }
+        } else {
+            feedItemModel.attachmentViewType = FeedViewsType.TEXT_ONLY.type
         }
+
         return feedItemModel
     }
 

@@ -1,4 +1,4 @@
-package com.aevshvetsov.minimalvkclient.ui.fragments
+package com.aevshvetsov.minimalvkclient.ui.screens
 
 import android.content.Context
 import android.os.Bundle

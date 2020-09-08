@@ -8,6 +8,7 @@
     <string name="notifications_fragment_label">Уведомления</string>
     <string name="search_fragment_label">Поиск</string>
     <string name="profile_fragment_label">Профиль</string>
-    <string name="wall_fragment_label">Стена</string>
+    <string name="wall_fragment_label">Новости</string>
     <string name="menu_logout">Выйти</string>
+    <string name="expandable_text_view_show_more_value">Показать полностью...</string>
 </resources>
