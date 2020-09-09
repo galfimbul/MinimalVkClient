@@ -2,6 +2,7 @@ package com.aevshvetsov.minimalvkclient.utils
 
 import com.aevshvetsov.minimalvkclient.adapters.AttachmentsTypeAdapter
 import com.aevshvetsov.minimalvkclient.models.networkmodels.Attachment
+import com.aevshvetsov.minimalvkclient.network.DialogApi
 import com.aevshvetsov.minimalvkclient.network.FeedApi
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
@@ -39,4 +40,5 @@ object RetrofitBuilder {
     }
 
     val feedApi: FeedApi = getRetrofit().create(FeedApi::class.java)
+    val dialogApi: DialogApi = getRetrofit().create(DialogApi::class.java)
 }

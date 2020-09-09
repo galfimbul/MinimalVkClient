@@ -3,6 +3,7 @@ package com.aevshvetsov.minimalvkclient.utils
 import android.content.res.Resources
 
 object Utils {
+
     fun parseFullName(fullName: String?): Pair<String?, String?> {
         val parts: List<String>? = fullName?.trimStart()?.trim()?.split(" ")
         var firstName = parts?.getOrNull(0)

@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun performLogin() {
-        VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS, VKScope.FRIENDS, VKScope.OFFLINE))
+        VK.login(this, arrayListOf(VKScope.WALL, VKScope.MESSAGES, VKScope.PHOTOS, VKScope.FRIENDS, VKScope.OFFLINE))
     }
 
     private fun setupViews() {
